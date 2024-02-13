@@ -1,0 +1,25 @@
+Question 1:---I am testing the different images and I experience significant drop of accuracy if I just feed the tilted face with >30*.
+
+I am using the prepared examples in browser and node-js and effects are similar: for the face looking straight into camera I get around 0.3 - 0.4, but if I tilt the face I go beyond 0.7. When testing the same images with dlib (which is the original network used in face-api.js if I understand correctly) I get the distance of <0.5 for the tilted faces.
+
+Do I need to additionally enable the alignment with face-api.js? Maybe I am missing something here.
+
+Here the example photos, where I get high distance with face-api.js, but is accept
+
+
+Solution:-
+Face Recognition & DLIB doesnot take care of Posture how you stand.  That's why accuracy drops .
+
+
+
+
+Question 2:---We tried with our company employees (Asian faces) but sometimes the distance between 2 different faces are quite low (below 0.3), we can easily separate them with eyes but looks the face-api pre-trained model could not separate them apart, we tried some western faces and it can work well. 
+So I am thinking if there are not so many Asian face samples in the training dataset so it may not perform very well towards them? If I have some Asian face dataset and want to train a new model, would you please advice how should I do the retrain? Thanks.
+
+
+Solution:-
+
+Yes your assumption is correct, the author of dlib (the project where the model is from) also states somewhere in his blog I think, that there is a bias towards western faces. I think you can retrain the model using the corresponding dlib example, but afterwards the model weights 
+have to be converted to a the format that tensorflow uses. But I can help you with the latter one, if you really want to retrain the model.
+
+Other than that, I am planning to train an own face recognition model as well since I want to have a more web friendly and more efficient model for face-api.js. But I can't make any promises when that model will be included.
